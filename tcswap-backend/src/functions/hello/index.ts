@@ -7,6 +7,7 @@ export default {
     {
       http: {
         method: 'post',
+        cors: true,
         path: 'hello',
         request: {
           schema: {

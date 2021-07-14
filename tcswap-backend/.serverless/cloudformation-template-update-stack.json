@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/tcswap-backend/dev/1626217243706-2021-07-13T23:00:43.706Z/tcswap-backend.zip"
+          "S3Key": "serverless/tcswap-backend/dev/1626296725384-2021-07-14T21:05:25.384Z/tcswap-backend.zip"
         },
         "Handler": "src/functions/hello/handler.main",
         "Runtime": "nodejs14.x",
@@ -184,14 +184,14 @@
         "HelloLogGroup"
       ]
     },
-    "HelloLambdaVersionDhexrr2q1rPAkbMndrvG2ZMba2mnilpaRXgHoKx6sY": {
+    "HelloLambdaVersionyl2mdihBsywlJJF6HGHNNkYr6hZCmW8XX4n6MTy2Q": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "BJMsGApvXd14NEKAop4HuecKUbYl9re/c66PERQMPbE="
+        "CodeSha256": "AEwre7pHFNuUZGQn3wPt5yr91ayavIw1hN0xnwhN6Hk="
       }
     },
     "ApiGatewayRestApi": {
@@ -217,6 +217,51 @@
           ]
         },
         "PathPart": "hello",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodHelloOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceHello"
+        },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
@@ -307,7 +352,7 @@
         }
       }
     },
-    "ApiGatewayDeployment1626217230789": {
+    "ApiGatewayDeployment1626296715255": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -316,6 +361,7 @@
         "StageName": "dev"
       },
       "DependsOn": [
+        "ApiGatewayMethodHelloOptions",
         "ApiGatewayMethodHelloPost"
       ]
     },
@@ -369,7 +415,7 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionDhexrr2q1rPAkbMndrvG2ZMba2mnilpaRXgHoKx6sY"
+        "Ref": "HelloLambdaVersionyl2mdihBsywlJJF6HGHNNkYr6hZCmW8XX4n6MTy2Q"
       },
       "Export": {
         "Name": "sls-tcswap-backend-dev-HelloLambdaFunctionQualifiedArn"
