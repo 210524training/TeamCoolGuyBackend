@@ -10,7 +10,7 @@ CALL addUserCard('bob99','Meklord Army of Skiel','Yu-Gi-Oh!','bad');
 CALL addUserCard('billyman123','Blue-Eyes Alternative Ultimate Dragon','Yu-Gi-Oh!','good');
 CALL removeUserCard('bob99','Meklord Army of Skiel','bad');
 CALL removeUserCard('bob99','Meklord Army of Skiel','good');
-CALL createOffer('charles99', 'bob99');
+SELECT * FROM createOffer('charles99', 'bob99');
 CALL addUserCard('charles99','Absolute Crusader','Yu-Gi-Oh!','good');
 CALL addToOffer(1,5,'requestor');
 CALL addToOffer(1,2,'decider');
