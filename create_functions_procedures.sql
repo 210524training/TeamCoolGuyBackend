@@ -79,10 +79,10 @@ DROP FUNCTION IF EXISTS getUserCards;
 CREATE FUNCTION  getUserCards(
 	username_in VARCHAR(255)
 )
-RETURNS TABLE (id INTEGER ,card_identifier VARCHAR(255), game VARCHAR(255), card_condition VARCHAR(255), num_owned INTEGER)
+RETURNS TABLE (card_id INTEGER ,card_owner VARCHAR(255),card_identifier VARCHAR(255), game VARCHAR(255), card_condition VARCHAR(255), num_owned INTEGER)
 LANGUAGE SQL
 AS $$
-	SELECT id, card_identifier, game, card_condition, num_owned
+	SELECT id, card_owner,card_identifier, game, card_condition, num_owned
 	FROM card
 	JOIN TCSwap_user ON (TCSwap_user.username = card.card_owner)
 	WHERE TCSwap_user.username = username_in;;
@@ -119,18 +119,18 @@ $$;
 
 -----------------------------------------------------------------------------------------------------------------------
 
-DROP PROCEDURE IF EXISTS createOffer;
-CREATE PROCEDURE createOffer(
+DROP FUNCTION IF EXISTS createOffer;
+CREATE FUNCTION createOffer(
 	requestor_in VARCHAR(255),
 	decider_in VARCHAR(255)
-)
+) RETURNS TABLE(offer_id INTEGER)
 LANGUAGE SQL
 AS $$
 	INSERT INTO offer(requestor, decider)
-	VALUES (requestor_in, decider_in);
+	VALUES (requestor_in, decider_in) RETURNING id;
 $$;
 
---CALL createOffer('charles99', 'bob99');
+--SELECT * FROM createOffer('charles99', 'bob99');
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -250,10 +250,10 @@ $$;
 DROP FUNCTION IF EXISTS getStores;
 CREATE FUNCTION  getStores(
 )
-RETURNS TABLE (	store_owner VARCHAR(255), store_name VARCHAR(255))
+RETURNS TABLE (	store_owner VARCHAR(255), store_name VARCHAR(255), featured_card_id INTEGER)
 LANGUAGE SQL
 AS $$
-	SELECT store_owner, store_name 
+	SELECT store_owner, store_name, featured_card_id 
 	FROM store;
  $$;
 
@@ -265,10 +265,10 @@ DROP FUNCTION IF EXISTS getUserStores;
 CREATE FUNCTION  getUserStores(
 	store_owner_in VARCHAR(255)
 )
-RETURNS TABLE (	store_owner VARCHAR(255), store_name VARCHAR(255))
+RETURNS TABLE (	store_owner VARCHAR(255), store_name VARCHAR(255), featured_card_id INTEGER)
 LANGUAGE SQL
 AS $$
-	SELECT store_owner, store_name 
+	SELECT store_owner, store_name, featured_card_id 
 	FROM store
 	WHERE store_owner = store_owner_in;
  $$;
@@ -313,10 +313,10 @@ DROP FUNCTION IF EXISTS getOfferDetails;
 CREATE FUNCTION  getOfferDetails(
 	offer_id_in INTEGER
 )
-RETURNS TABLE (id INTEGER, card_identifier VARCHAR(255), game VARCHAR(255), card_condition VARCHAR(255),offer_side offer_side_type)
+RETURNS TABLE (id INTEGER,card_id INTEGER,card_num_owned INTEGER, card_owner VARCHAR(255) ,card_identifier VARCHAR(255), game VARCHAR(255), card_condition VARCHAR(255),offer_side offer_side_type)
 LANGUAGE SQL
 AS $$
-	SELECT offer_item.id, card.card_identifier, card.game, card.card_condition, offer_item.offer_side
+	SELECT offer_item.id,card.id,card.num_owned,card.card_owner ,card.card_identifier, card.game, card.card_condition, offer_item.offer_side
 	FROM offer
 	JOIN offer_item ON (offer.id = offer_item.offer_id)
 	JOIN card ON (card.id = offer_item.card_id)
@@ -356,7 +356,7 @@ AS $$
 	WHERE LOWER(username) LIKE '%'||LOWER(search_str)||'%';
  $$;
  
---SELECT * FROM searchUsers('bob');
+--SELECT * FROM searchUsers('');
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -364,10 +364,10 @@ DROP FUNCTION IF EXISTS searchStores;
 CREATE FUNCTION  searchStores(
 	search_str VARCHAR(255)
 )
-RETURNS TABLE (store_owner VARCHAR(255), store_name VARCHAR(255))
+RETURNS TABLE (store_owner VARCHAR(255), store_name VARCHAR(255), featured_card_id INTEGER)
 LANGUAGE SQL
 AS $$
-	SELECT store_owner , store_name 
+	SELECT store_owner , store_name, featured_card_id
 	FROM store
 	WHERE LOWER(store_name) LIKE '%'||LOWER(search_str)||'%';
  $$;
