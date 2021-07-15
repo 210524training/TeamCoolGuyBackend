@@ -1,5 +1,5 @@
 import 'source-map-support/register';
-import { DAOCard } from '../../libs/DAO/DAOCard'
+import DAOCard  from '@libs/DAO/DAOCard'
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { formatJSONResponse } from '@libs/apiGateway';
@@ -7,14 +7,14 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 
-const CardAPI = new DAOCard
+
 
 const getCardCollection: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 
   const { username } = event.pathParameters
 
   try {
-    const data = await CardAPI.getUserCards(username)
+    const data = await DAOCard.getUserCards(username)
     return formatJSONResponse({
       message: data,
       event
