@@ -1,6 +1,7 @@
 CALL registerPlayer('bob99','pass','robert','young');
 CALL registerPlayer('charles99','pass','charles','hardy');
 CALL registerStoreOwner('billyman123','pass','buffalo','bill');
+CALL registerStoreOwner('another_user','pass','teddy','rosevelt');
 CALL addUserCard('bob99','Blue-Eyes Alternative Ultimate Dragon','Yu-Gi-Oh!','good');
 CALL addUserCard('bob99','Blue-Eyes Alternative Ultimate Dragon','Yu-Gi-Oh!','good');
 CALL addUserCard('bob99','Meklord Army of Skiel','Yu-Gi-Oh!','good');
@@ -14,6 +15,7 @@ CALL addUserCard('charles99','Absolute Crusader','Yu-Gi-Oh!','good');
 CALL addToOffer(1,5,'requestor');
 CALL addToOffer(1,2,'decider');
 CALL createStore('bob99','robert`s emporium of cards');
+CALL createStore('another_user', 'teddy time');
 CALL setFeatured('robert`s emporium of cards',1);
 CALL unSetFeatured('robert`s emporium of cards');
 --SELECT * FROM getUserCards('bob99');
