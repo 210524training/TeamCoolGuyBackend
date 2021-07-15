@@ -96,7 +96,7 @@ export class DAOUser {
     public async registerUser(user: User):Promise<boolean> {
       const client = await this.pool.connect();
 
-      try {
+      try { 
         if(user.role === 'player') {
           await client.query('CALL registerPlayer($1,$2,$3,$4)', [user.username, user.password, user.firstname, user.lastname]);
         } else {
