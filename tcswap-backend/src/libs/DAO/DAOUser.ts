@@ -98,9 +98,9 @@ export class DAOUser {
 
       try {
         if(user.role === 'player') {
-          const res = await client.query('CALL registerPlayer($1,$2,$3,$4)', [user.username, user.password, user.firstname, user.lastname]);
+          await client.query('CALL registerPlayer($1,$2,$3,$4)', [user.username, user.password, user.firstname, user.lastname]);
         } else {
-          const res = await client.query('CALL registerStoreOwner($1,$2,$3,$4)', [user.username, user.password, user.firstname, user.lastname]);
+          await client.query('CALL registerStoreOwner($1,$2,$3,$4)', [user.username, user.password, user.firstname, user.lastname]);
         }
         return true;
       } catch(error) {
