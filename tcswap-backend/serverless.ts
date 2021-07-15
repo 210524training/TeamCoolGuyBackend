@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
 import hello from '@functions/hello';
+import getCardCollection from '@functions/getCardCollection';
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -10,10 +11,26 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
+    // esbuild: {
+    //   bundle: true,
+    //   minify: true,
+    //   sourcemap: true,
+    //   external: [
+    //     'aws-sdk',
+    //     'pg-native'
+    //   ],
+    //   watch: {
+    //     pattern: ['src/**/*'],
+    //     ignore: ['.serverless/**/*', '.build', 'node_modules']
+    //   }
+    // }
   },
-  plugins: ['serverless-webpack'],
+  plugins: ['serverless-webpack', 'serverless-plugin-resource-tagging'],
   provider: {
     name: 'aws',
+    stackTags: {
+      Created_For: 'TCG_Swap Application'
+    },
     runtime: 'nodejs14.x',
     region: 'us-west-1',
     apiGateway: {
@@ -25,8 +42,12 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
+  
   // import the function via paths
-  functions: { hello },
+  functions: { 
+    hello,
+    getCardCollection 
+  },
 };
 
 module.exports = serverlessConfiguration;

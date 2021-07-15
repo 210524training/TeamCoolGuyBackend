@@ -1,0 +1,10 @@
+{
+  "name": "tcswap-backend",
+  "version": "1.0.0",
+  "description": "Packaged externals for tcswap-backend",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "pg-native": ""
+  }
+}
