@@ -1,5 +1,6 @@
 import Card from '@libs/models/card';
 import Offer from '@libs/models/offer';
+import DAOCard from '@libs/DAO/daoCard'
 import { Pool, QueryResult } from 'pg';
 import connectionString from './connection';
 
@@ -32,6 +33,40 @@ export class DAOOffer {
         min: 5,
         max: 20,
       });
+    }
+
+    public async makeTrade(offer: Offer):Promise<boolean>{
+      const client = await this.pool.connect();
+
+      try {
+        await client.query('BEGIN');
+
+        let cardRes:boolean;
+        for(const requestorCard of offer.requestorCards){
+          cardRes = await DAOCard.removeUserCard(offer.requestor, requestorCard.card_identifier, requestorCard.condition);
+          if(!cardRes) throw new Error("failed to make trade");
+          cardRes = await DAOCard.addUserCard(offer.decider,requestorCard.card_identifier, requestorCard.game, requestorCard.condition);
+          if(!cardRes) throw new Error("failed to make trade");
+        }
+        
+        for(const deciderCard of offer.deciderCards){
+          cardRes = await DAOCard.removeUserCard(offer.decider, deciderCard.card_identifier, deciderCard.condition);
+          if(!cardRes) throw new Error("failed to make trade");
+          cardRes = await DAOCard.addUserCard(offer.requestor,deciderCard.card_identifier, deciderCard.game, deciderCard.condition);
+          if(!cardRes) throw new Error("failed to make trade");        
+        }
+
+        
+        const statusAlterRes = await this.alterOfferStatus(offer.id, 'accepted');
+        if(!statusAlterRes) throw new Error("failed to make trade");
+        await client.query('COMMIT');
+        return true;
+      } catch(error) {
+        await client.query('ROLLBACK');
+        return false;
+      } finally {
+        client.release();
+      }
     }
 
     public async getUserRequests(username:string):Promise<Offer[]> {

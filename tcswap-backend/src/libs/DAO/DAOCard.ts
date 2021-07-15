@@ -112,3 +112,7 @@ export class DAOCard {
       }
     }
 }
+
+const DAO_Card = new DAOCard();
+
+export default DAO_Card;
