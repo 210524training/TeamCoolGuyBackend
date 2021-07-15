@@ -5,4 +5,5 @@ export default interface Card{
     game: string,
     condition: string,
     num_owned: number,
+    role?: 'player'| 'store owner'
 };
