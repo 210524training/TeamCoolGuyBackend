@@ -5,6 +5,7 @@ import getCardCollection from '@functions/getCardCollection';
 import addCardToCollection from '@functions/addCardToCollection';
 import getFeaturedCard from '@functions/getFeaturedCard'
 import getUsersStore from '@functions/getUsersStore';
+import login from '@functions/login';
 import postFeatureCard from '@functions/postFeatureCard';
 
 const serverlessConfiguration: AWS = {
@@ -54,6 +55,7 @@ const serverlessConfiguration: AWS = {
     getFeaturedCard,
     addCardToCollection,
     getUsersStore,
+    login,
     postFeatureCard,
   },
 };
