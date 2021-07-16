@@ -5,6 +5,7 @@ import getCardCollection from '@functions/getCardCollection';
 import addCardToCollection from '@functions/addCardToCollection';
 import getFeaturedCard from '@functions/getFeaturedCard'
 import getUsersStore from '@functions/getUsersStore';
+import login from '@functions/login';
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -53,6 +54,7 @@ const serverlessConfiguration: AWS = {
     getFeaturedCard,
     addCardToCollection,
     getUsersStore,
+    login,
   },
 };
 
