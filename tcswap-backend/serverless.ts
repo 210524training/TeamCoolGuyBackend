@@ -7,6 +7,7 @@ import getFeaturedCard from '@functions/getFeaturedCard'
 import getUsersStore from '@functions/getUsersStore';
 import login from '@functions/login';
 import postFeatureCard from '@functions/postFeatureCard';
+import register from '@functions/register';
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -57,6 +58,7 @@ const serverlessConfiguration: AWS = {
     getUsersStore,
     login,
     postFeatureCard,
+    register,
   },
 };
 

@@ -3,3 +3,5 @@ export { default as getCardCollection } from './getCardCollection';
 export { default as getFeaturedCard } from './getFeaturedCard';
 export { default as getUsersStore } from './getUsersStore';
 export { default as postFeaturedCard } from './postFeatureCard';
+export { default as login } from './login';
+export { default as register } from './register';
