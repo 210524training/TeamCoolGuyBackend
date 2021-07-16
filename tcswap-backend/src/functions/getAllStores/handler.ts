@@ -9,7 +9,7 @@ import { DAOStore } from '@libs/DAO/DAOStore';
 
 const StoreAPI = new DAOStore;
 
-const getUsersStore: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const getAllStores: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 
   try {
     const data = await StoreAPI.getAllStores()
@@ -25,4 +25,4 @@ const getUsersStore: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 }
 
-export const main = middyfy(getUsersStore);
+export const main = middyfy(getAllStores);
