@@ -8,7 +8,7 @@ export default {
       http: {
         method: 'post',
         cors: true,
-        path: 'resgister',
+        path: 'register',
         request: {
           schema: {
             'application/json': schema
