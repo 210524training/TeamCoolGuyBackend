@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import hello from '@functions/hello';
 import getCardCollection from '@functions/getCardCollection';
 import addCardToCollection from '@functions/addCardToCollection';
+import getFeaturedCard from '@functions/getFeaturedCard'
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -48,6 +49,7 @@ const serverlessConfiguration: AWS = {
   functions: { 
     hello,
     getCardCollection,
+    getFeaturedCard,
     addCardToCollection,
   },
 };

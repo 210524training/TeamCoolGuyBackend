@@ -85,6 +85,23 @@ export class DAOStore {
     }
   }
 
+  public async getFeatured(storeOwner: string): Promise<string[]> {
+    const client = await this.pool.connect();
+
+    try {
+      const featuredCard = await client.query<DBStore>(`
+      SELECT card_identifier FROM card 
+      LEFT JOIN store ON featured_card_id = id 
+      WHERE store_owner=$1 `, [storeOwner]);
+
+      return featuredCard;
+    } catch(err) {
+      console.log(err)
+    } finally {
+      client.release();
+    }
+  }
+
   public async setFeatured(storeName: string, featured_card_id:number):Promise<boolean> {
     const client = await this.pool.connect();
 
