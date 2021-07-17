@@ -8,7 +8,7 @@ export default {
       http: {
         method: 'post',
         cors: true,
-        path: 'collections/{username}',
+        path: 'collections/{username}/{cardID}/remove',
         request: {
           schema: {
             'application/json': schema
