@@ -8,7 +8,7 @@ import { middyfy } from '@libs/lambda';
 import schema from './schema';
 
 
-const addCardToCollection: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const addMessage: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     const { text, created_at, created_by } = event.body;
 
     try {
@@ -20,9 +20,9 @@ const addCardToCollection: ValidatedEventAPIGatewayProxyEvent<typeof schema> = a
       } catch(err) {
         return formatJSONResponse({
           statusCode: 400,
-          message: `Error while trying to add card to collection: ${err}`
+          message: `Error while trying to add message: ${err}`
         })
       }
 }
 
-export const main = middyfy(addCardToCollection);
+export const main = middyfy(addMessage);
