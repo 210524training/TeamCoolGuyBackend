@@ -373,3 +373,36 @@ AS $$
  $$;
  
 --SELECT * FROM searchStores('robert`s emporium');
+
+-----------------------------------------------------------------------------------------------------------------------
+
+DROP PROCEDURE IF EXISTS addMessage;
+CREATE PROCEDURE addMessage(
+	text_in VARCHAR(1000),
+	created_at VARCHAR(255),
+	created_by VARCHAR(255)
+)
+LANGUAGE SQL
+AS $$
+	INSERT INTO message(text, created_at, created_by)
+	VALUES (text_in, created_at, created_by);
+$$;
+
+--CALL addMessage('your message here', 'Sat Jul 17 2021 08:42:47 GMT-0700 (Pacific Daylight Time)', 'billyman123');
+
+-----------------------------------------------------------------------------------------------------------------------
+
+DROP FUNCTION IF EXISTS getMessages;
+CREATE FUNCTION  getMessages(
+)
+RETURNS TABLE (id INTEGER,
+	text VARCHAR(1000),
+	created_at VARCHAR(255),
+	created_by VARCHAR(255))
+LANGUAGE SQL
+AS $$
+	SELECT *
+	FROM message;
+ $$;
+ 
+--SELECT * FROM getMessages(); 
