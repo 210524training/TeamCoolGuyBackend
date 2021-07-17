@@ -7,6 +7,8 @@ import removeCardFromCollection from '@functions/removeCardFromCollection';
 import getFeaturedCard from '@functions/getFeaturedCard'
 import getUsersStore from '@functions/getUsersStore';
 import getOffers from '@functions/getOffers'
+import acceptOffer from '@functions/acceptOffer'
+import rejectOffer from '@functions/rejectOffer';
 import getRequests from '@functions/getRequests'
 import getAllStores from '@functions/getAllStores'
 import login from '@functions/login';
@@ -65,6 +67,8 @@ const serverlessConfiguration: AWS = {
     getUsersStore,
     getAllStores,
     getOffers,
+    acceptOffer,
+    rejectOffer,
     getRequests,
     login,
     postFeatureCard,
