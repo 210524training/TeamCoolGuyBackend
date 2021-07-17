@@ -3,8 +3,12 @@ import type { AWS } from '@serverless/typescript';
 import hello from '@functions/hello';
 import getCardCollection from '@functions/getCardCollection';
 import addCardToCollection from '@functions/addCardToCollection';
+import removeCardFromCollection from '@functions/removeCardFromCollection';
 import getFeaturedCard from '@functions/getFeaturedCard'
 import getUsersStore from '@functions/getUsersStore';
+import getOffers from '@functions/getOffers'
+import getRequests from '@functions/getRequests'
+import getAllStores from '@functions/getAllStores'
 import login from '@functions/login';
 import postFeatureCard from '@functions/postFeatureCard';
 import register from '@functions/register';
@@ -57,7 +61,11 @@ const serverlessConfiguration: AWS = {
     getCardCollection,
     getFeaturedCard,
     addCardToCollection,
+    removeCardFromCollection,
     getUsersStore,
+    getAllStores,
+    getOffers,
+    getRequests,
     login,
     postFeatureCard,
     register,
