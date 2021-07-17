@@ -8,6 +8,8 @@ import getUsersStore from '@functions/getUsersStore';
 import login from '@functions/login';
 import postFeatureCard from '@functions/postFeatureCard';
 import register from '@functions/register';
+import getMessages from '@functions/getMessages';
+import addMessage from '@functions/addMessage';
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -59,6 +61,8 @@ const serverlessConfiguration: AWS = {
     login,
     postFeatureCard,
     register,
+    getMessages,
+    addMessage,
   },
 };
 
