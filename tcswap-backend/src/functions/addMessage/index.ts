@@ -1,18 +1,19 @@
 import { handlerPath } from '@libs/handlerResolver';
+import schema from './schema';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
     {
       http: {
-        method: 'get',
+        method: 'post',
         cors: true,
-<<<<<<< HEAD
-        path: 'store/viewStores',
-=======
-        path: 'store/viewstores',
-      
->>>>>>> 15d47eea540d90d92d52e8777a2489354c661318
+        path: 'messages',
+        request: {
+          schema: {
+            'application/json': schema
+          }
+        },
       }
     }
   ],

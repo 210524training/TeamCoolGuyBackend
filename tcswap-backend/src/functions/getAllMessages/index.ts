@@ -7,12 +7,8 @@ export default {
       http: {
         method: 'get',
         cors: true,
-<<<<<<< HEAD
-        path: 'store/viewStores',
-=======
-        path: 'store/viewstores',
+        path: 'collections/{username}',
       
->>>>>>> 15d47eea540d90d92d52e8777a2489354c661318
       }
     }
   ],

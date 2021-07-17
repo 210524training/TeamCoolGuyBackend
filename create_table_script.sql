@@ -30,7 +30,7 @@ CREATE TABLE offer (
 	  REFERENCES TCSwap_user(username)
 	  ON DELETE CASCADE
 );
- 
+
 DROP TABLE IF EXISTS card CASCADE;
 CREATE TABLE card (
 	id SERIAL PRIMARY KEY,
@@ -77,4 +77,16 @@ CREATE TABLE store (
       FOREIGN KEY(store_owner) 
 	  REFERENCES TCSwap_user(username)
 	  ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS message;
+CREATE TABLE message (
+	id VARCHAR(255) PRIMARY KEY,
+	text VARCHAR(1000) NOT NULL,
+	created_at VARCHAR(255) NOT NULL,
+	created_by VARCHAR(255) NOT NULL,
+	CONSTRAINT user_con
+		FOREIGN KEY(created_by)
+	REFERENCES TCSWAP_user(username)
+	ON DELETE CASCADE
 );
