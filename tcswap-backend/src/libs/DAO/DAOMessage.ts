@@ -1,3 +1,4 @@
+import IMessage from '@libs/models/imessage';
 import Message from '@libs/models/message';
 import { Pool } from 'pg';
 import connectionString from './connection';
@@ -15,16 +16,27 @@ export class DAOMessage {
     }
 
 
-    public async getMessage():Promise<Message[]> {
+    public async getMessage():Promise<IMessage[]> {
       const client = await this.pool.connect();
 
       try {
         const res = await client.query<Message>('SELECT * FROM getMessages()');
-        const rows = res.rows as Message[];
+        const rows = res.rows;
         if(res.rows.length > 0) {
-          return rows as Message[];
+          const formatRows: IMessage[] = rows.map((row: Message) => {
+              return {
+                _id: row.id,
+                text: row.text,
+                createdAt: row.created_at,
+                user: { 
+                  _id: row.created_by,
+                  name: row.created_by
+                }
+              }
+            });
+          return formatRows as IMessage[];
         }
-        return []as Message[];
+        return [] as IMessage[];
       } catch(error) {
       // log.error(error);
         throw error;
@@ -34,23 +46,23 @@ export class DAOMessage {
     }
 
     public async addMessage(
-        text: string,
-        created_at: string,
-        created_by: string,
-    ):Promise<boolean> {
-      const client = await this.pool.connect();
+      id: string,
+      text: string,
+      created_at: string,
+      created_by: string,
+  ):Promise<boolean> {
+    const client = await this.pool.connect();
 
-      try {
-        await client.query('CALL addMessage($1,$2,$3)', [text ,created_at, created_by]);
-        return true;
-      } catch(error) {
-      // log.error(error);
-        return false;
-      } finally {
-        client.release();
-      }
+    try {
+      await client.query('CALL addMessage($1,$2,$3,$4)', [id, text ,created_at, created_by]);
+      return true;
+    } catch(error) {
+    // log.error(error);
+      return false;
+    } finally {
+      client.release();
     }
-
+  }
     
 }
 

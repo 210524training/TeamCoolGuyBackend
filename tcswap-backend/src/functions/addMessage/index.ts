@@ -8,7 +8,7 @@ export default {
       http: {
         method: 'post',
         cors: true,
-        path: 'messages/',
+        path: 'messages',
         request: {
           schema: {
             'application/json': schema

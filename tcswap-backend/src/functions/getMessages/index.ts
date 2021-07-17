@@ -7,8 +7,7 @@ export default {
       http: {
         method: 'get',
         cors: true,
-        path: 'messages/',
-      
+        path: 'messages',
       }
     }
   ],

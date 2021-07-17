@@ -9,10 +9,10 @@ import schema from './schema';
 
 
 const addMessage: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-    const { text, created_at, created_by } = event.body;
+    const { id, text, created_at, created_by } = event.body;
 
     try {
-        const addMessageResult = await DAOMessage.addMessage(text, created_at, created_by);
+        const addMessageResult = await DAOMessage.addMessage(id, text, created_at, created_by);
         return formatJSONResponse({
           addMessageResult,
           event

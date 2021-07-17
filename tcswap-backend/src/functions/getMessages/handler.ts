@@ -7,8 +7,6 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 
-
-
 const getMessages: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 
   try {
