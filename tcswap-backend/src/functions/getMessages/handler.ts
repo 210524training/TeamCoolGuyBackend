@@ -1,5 +1,5 @@
 import 'source-map-support/register';
-import DAOCard  from '@libs/DAO/DAOCard'
+import DAOMessage  from '@libs/DAO/DAOMessage'
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { formatJSONResponse } from '@libs/apiGateway';
@@ -9,14 +9,12 @@ import schema from './schema';
 
 
 
-const getCardCollection: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-
-  const { username } = event.pathParameters
+const getMessages: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
 
   try {
-    const data = await DAOCard.getUserCards(username)
+    const messages = await DAOMessage.getMessage();
     return formatJSONResponse({
-      message: data,
+      messages,
       event
     })
   } catch(err) {
@@ -27,4 +25,4 @@ const getCardCollection: ValidatedEventAPIGatewayProxyEvent<typeof schema> = asy
   }
 }
 
-export const main = middyfy(getCardCollection);
+export const main = middyfy(getMessages);

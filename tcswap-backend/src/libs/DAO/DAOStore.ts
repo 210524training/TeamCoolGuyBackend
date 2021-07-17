@@ -94,14 +94,8 @@ export class DAOStore {
       LEFT JOIN store ON featured_card_id = id 
       WHERE store_owner=$1 `, [storeOwner]);
 
-      const rows = res.rows;
-      if(res.row.length > 0) {
-        return rows.map(data => ({
-          featureCard: data.card_identifier
-        }))
-      }
-
-      return [];
+      return res.rows;
+      
     } catch(err) {
       console.log(err)
     } finally {
