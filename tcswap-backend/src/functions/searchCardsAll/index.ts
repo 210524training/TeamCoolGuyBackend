@@ -7,7 +7,8 @@ export default {
       http: {
         method: 'get',
         cors: true,
-        path: 'store/viewStores',
+        path: 'cards/',
+      
       }
     }
   ],
