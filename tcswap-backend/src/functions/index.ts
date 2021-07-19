@@ -14,3 +14,5 @@ export { default as login } from './login';
 export { default as register } from './register';
 export { default as getMessages } from '@functions/getMessages';
 export { default as addMessage }from '@functions/addMessage';
+export { default as searchCards }from '@functions/searchCards';
+export { default as searchCardsAll }from '@functions/searchCardsAll';
