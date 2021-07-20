@@ -18,6 +18,7 @@ import getMessages from '@functions/getMessages';
 import addMessage from '@functions/addMessage';
 import searchCards from '@functions/searchCards';
 import searchCardsAll from '@functions/searchCardsAll';
+import createOffer from '@functions/createOffer';
 
 const serverlessConfiguration: AWS = {
   service: 'tcswap-backend',
@@ -79,6 +80,7 @@ const serverlessConfiguration: AWS = {
     addMessage,
     searchCards,
     searchCardsAll,
+    createOffer
   },
 };
 
