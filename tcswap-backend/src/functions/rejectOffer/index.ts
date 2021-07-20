@@ -13,7 +13,7 @@ export default {
       http: {
         method: 'post',
         cors: true,
-        path: 'collections/{username}/reject',
+        path: 'collections/reject',
         request: {
           schema: {
             'application/json': schema

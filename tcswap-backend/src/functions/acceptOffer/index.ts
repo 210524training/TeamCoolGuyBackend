@@ -1,5 +1,5 @@
 import { handlerPath } from '@libs/handlerResolver';
-import schema from './schema';
+// import schema from './schema';
 
 /**
  * Will not compile with 2 path parameters,
@@ -14,11 +14,9 @@ export default {
       http: {
         method: 'post',
         cors: true,
-        path: 'offers/{username}/accept',
+        path: 'offers/accept',
         request: {
-          schema: {
-            'application/json': schema
-          }
+          schema: null,
         },
       }
     }

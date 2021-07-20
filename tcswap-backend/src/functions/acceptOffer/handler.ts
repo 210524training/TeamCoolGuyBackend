@@ -6,14 +6,15 @@ import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
+import Offer from '@libs/models/offer';
 
 const OfferAPI = new DAOOffer
 
 const acceptOffer: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  const { offerID } = event.body
+  const offer = event.body.Offer as Offer;
 
   try {
-    const success = await OfferAPI.alterOfferStatus(offerID, 'accepted')
+    const success = await OfferAPI.makeTrade(offer)
     return formatJSONResponse({
       message: success,
       event
