@@ -16,3 +16,4 @@ export { default as getMessages } from '@functions/getMessages';
 export { default as addMessage }from '@functions/addMessage';
 export { default as searchCards }from '@functions/searchCards';
 export { default as searchCardsAll }from '@functions/searchCardsAll';
+export { default as createOffer } from '@functions/createOffer';
