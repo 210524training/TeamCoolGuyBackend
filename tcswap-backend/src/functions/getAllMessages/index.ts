@@ -7,7 +7,7 @@ export default {
       http: {
         method: 'get',
         cors: true,
-        path: 'collections/{username}',
+        path: 'messages',
       
       }
     }
