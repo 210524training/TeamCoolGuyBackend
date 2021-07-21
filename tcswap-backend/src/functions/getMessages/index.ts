@@ -8,7 +8,11 @@ export default {
         method: 'get',
         cors: true,
         path: 'messages',
+        request: {
+          schema: null
+        },
       }
+
     }
   ],
 }
