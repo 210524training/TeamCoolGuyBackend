@@ -49,7 +49,7 @@ const serverlessConfiguration: AWS = {
       Created_For: 'TCG_Swap Application'
     },
     runtime: 'nodejs14.x',
-    region: 'us-west-1',
+    region: 'us-west-2',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
