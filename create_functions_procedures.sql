@@ -286,7 +286,7 @@ LANGUAGE SQL
 AS $$
 	SELECT *
 	FROM offer
-	WHERE decider = username_in;
+	WHERE decider = username_in AND status = 'pending';
  $$;
  
 --SELECT * FROM getUserOffers('bob99');
@@ -340,7 +340,7 @@ AS $$
 	WHERE LOWER(card_identifier) LIKE '%'||LOWER(search_str)||'%';
  $$;
  
---SELECT * FROM searchCards('ulti');
+--SELECT * FROM searchCards('');
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -378,15 +378,14 @@ AS $$
 
 DROP PROCEDURE IF EXISTS addMessage;
 CREATE PROCEDURE addMessage(
-	id_in VARCHAR(255),
 	text_in VARCHAR(1000),
 	created_at VARCHAR(255),
 	created_by VARCHAR(255)
 )
 LANGUAGE SQL
 AS $$
-	INSERT INTO message(id, text, created_at, created_by)
-	VALUES (id_in, text_in, created_at, created_by);
+	INSERT INTO message(text, created_at, created_by)
+	VALUES (text_in, created_at, created_by);
 $$;
 
 --CALL addMessage('your message here', 'Sat Jul 17 2021 08:42:47 GMT-0700 (Pacific Daylight Time)', 'billyman123');
@@ -396,7 +395,7 @@ $$;
 DROP FUNCTION IF EXISTS getMessages;
 CREATE FUNCTION  getMessages(
 )
-RETURNS TABLE (id VARCHAR(255),
+RETURNS TABLE (id INTEGER,
 	text VARCHAR(1000),
 	created_at VARCHAR(255),
 	created_by VARCHAR(255))
